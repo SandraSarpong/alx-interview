@@ -8,7 +8,7 @@ This project contains tasks for working module with Pascal's triangle as a chall
   + Returns an empty list if `n <= 0`.
   + You can assume `n` will be always an integer.
 
-## Explaination
+## Explanation
 
 This function takes an integer n as input and returns a list of lists representing the first n rows of Pascal's triangle. The function first initializes an empty list triangle which will be used to store the rows of the triangle. It then checks if n is a positive integer, and if it's not, it returns the empty list. Otherwise, it iterates over the range 0 to n - 1 and generates each row of the triangle.
 

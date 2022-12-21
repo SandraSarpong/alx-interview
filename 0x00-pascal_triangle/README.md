@@ -15,3 +15,5 @@ This function takes an integer n as input and returns a list of lists representi
 For each row, it initializes an empty list line which will be used to store the values in the row. It then iterates over the range 0 to i, where i is the current row number, and calculates the value for each element in the row. If the element is the first or last element in the row, it is set to 1. Otherwise, it is calculated by adding the value of the element in the previous row at the same position and the element in the previous row at the position before that. The completed row is then appended to the triangle list.
 
 Finally, the triangle list is returned as the result of the function.
+
+![](pascal_image.jpg)

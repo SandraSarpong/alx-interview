@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+'''A module for working with lockboxes.
+'''
+
 def canUnlockAll(boxes):
   # Create a set to keep track of which boxes have been opened
   opened_boxes = set()

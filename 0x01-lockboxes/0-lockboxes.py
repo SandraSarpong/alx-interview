@@ -3,19 +3,18 @@
 '''
 
 def canUnlockAll(boxes):
-  # Create a set to keep track of which boxes have been opened
-  opened_boxes = set()
-  # Add the first box to the set
-  opened_boxes.add(0)
-  # Create a queue for breadth-first search
-  queue = [0]
-  
-  # Run breadth-first search
-  while queue:
-    box = queue.pop(0)
-    for key in boxes[box]:
-      if key not in opened_boxes:
-        opened_boxes.add(key)
-        queue.append(key)
-  # Check if all boxes have been opened
-  return len(opened_boxes) == len(boxes)
+    '''Checks if all the boxes in a list of boxes containing the keys
+    (indices) to other boxes can be unlocked given that the first
+    box is unlocked.
+    '''
+    n = len(boxes)
+    seen_boxes = set([0])
+    unseen_boxes = set(boxes[0]).difference(set([0]))
+    while len(unseen_boxes) > 0:
+        boxIdx = unseen_boxes.pop()
+        if boxIdx >= n or boxIdx < 0:
+            continue
+        if boxIdx not in seen_boxes:
+            seen_boxes.add(boxIdx)
+            unseen_boxes = unseen_boxes.union(set(boxes[boxIdx]).difference(seen_boxes))
+    return n == len(seen_boxes)

@@ -1,25 +1,36 @@
 #!/usr/bin/node
+/*
+script that prints all characters of a Star Wars movie:
+The first argument is the Movie ID - example: 3 = “Return of the Jedi”
+Display one character name by line in the same order of the list “characters” in the /films/ response
+You must use the Star wars API
+You must use the module request
+*/
+
 const request = require('request');
-const API_URL = 'https://swapi-api.hbtn.io/api';
+const movieID = process.argv.slice(2);
+const endpoint = 'https://swapi-api.hbtn.io/api/films/' + movieID;
 
-if (process.argv.length > 2) {
-  request(`${API_URL}/films/${process.argv[2]}/`, (err, _, body) => {
-    if (err) {
-      console.log(err);
+function makeRequest (array, index) {
+  if (index === array.length) {
+    return;
+  }
+
+  request(array[index], (error, response, body) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(JSON.parse(body).name);
+      makeRequest(array, index + 1);
     }
-    const charactersURL = JSON.parse(body).characters;
-    const charactersName = charactersURL.map(
-      url => new Promise((resolve, reject) => {
-        request(url, (promiseErr, __, charactersReqBody) => {
-          if (promiseErr) {
-            reject(promiseErr);
-          }
-          resolve(JSON.parse(charactersReqBody).name);
-        });
-      }));
-
-    Promise.all(charactersName)
-      .then(names => console.log(names.join('\n')))
-      .catch(allErr => console.log(allErr));
   });
 }
+
+request(endpoint, (error, response, body) => {
+  if (error) {
+    console.log(error);
+  } else {
+    const chrList = JSON.parse(body).characters;
+    makeRequest(chrList, 0);
+  }
+});
